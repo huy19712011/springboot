@@ -25,7 +25,7 @@ public class CourseController {
 
     @GetMapping("/courses/1")
     public Course getCourseDetails() {
-        return new Course(1, "Learn Java", "Bkacad");
+        return new Course(1, "Learn Java", "Bkacad 123");
     }
 
 
