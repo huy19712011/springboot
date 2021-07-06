@@ -7,8 +7,10 @@ package com.example.springboot.courses.controller;
 
 import com.example.springboot.courses.bean.Course;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.example.springboot.courses.repository.CourseRepository;
 
 /**
  *
@@ -17,10 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CourseController {
 
+    @Autowired
+    private CourseRepository repository;
+
     @GetMapping("/courses")
     public List<Course> getAllCourses() {
-        return List.of(new Course(1, "Learn Java", "Bkacad"),
-                new Course(2, "Learn full stack with Angular and React", "Bkacad"));
+        return repository.findAll();
     }
 
     @GetMapping("/courses/1")
