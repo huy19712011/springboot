@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.springboot.courses.repository.CourseRepository;
+import java.util.Optional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  *
@@ -27,9 +29,12 @@ public class CourseController {
         return repository.findAll();
     }
 
-    @GetMapping("/courses/1")
-    public Course getCourseDetails() {
-        return new Course(1, "Learn Java", "Bkacad 123");
+    @GetMapping("/courses/{id}")
+    public Course getCourseDetails(@PathVariable long id) {
+        Optional<Course> course = repository.findById(id);
+        if (course.isEmpty())
+            throw new RuntimeException("Course not found with id" + id);
+        return course.get();
     }
 
 
