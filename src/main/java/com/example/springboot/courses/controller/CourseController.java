@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.springboot.courses.repository.CourseRepository;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  *
@@ -36,6 +38,12 @@ public class CourseController {
             throw new RuntimeException("Course not found with id" + id);
         return course.get();
     }
+
+    @PostMapping("/courses")
+    public void createCourse(@RequestBody Course course) {
+        repository.save(course);
+    }
+
 
 
 }
