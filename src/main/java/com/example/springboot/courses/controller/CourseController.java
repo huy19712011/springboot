@@ -50,14 +50,14 @@ public class CourseController {
     @PutMapping("/courses/{id}")
     public void updateCourse(@PathVariable(name = "id") long id, @RequestBody Course course) {
 
-        Optional<Course> newcourCourse = repository.findById(id);
-        if (newcourCourse.isEmpty()) {
+        Optional<Course> newCourse = repository.findById(id);
+        if (newCourse.isEmpty()) {
             throw new RuntimeException("Course not found with id" + id);
         }
-        newcourCourse.get().setId(id);
-        newcourCourse.get().setAuthor(course.getAuthor());
-        newcourCourse.get().setName(course.getName());
-        repository.save(newcourCourse.get());
+        newCourse.get().setId(id);
+        newCourse.get().setAuthor(course.getAuthor());
+        newCourse.get().setName(course.getName());
+        repository.save(newCourse.get());
 
 //        repository.save(course);
     }
