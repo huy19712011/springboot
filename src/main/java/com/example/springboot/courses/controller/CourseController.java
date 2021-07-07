@@ -14,6 +14,7 @@ import com.example.springboot.courses.repository.CourseRepository;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
@@ -34,8 +35,9 @@ public class CourseController {
     @GetMapping("/courses/{id}")
     public Course getCourseDetails(@PathVariable long id) {
         Optional<Course> course = repository.findById(id);
-        if (course.isEmpty())
+        if (course.isEmpty()) {
             throw new RuntimeException("Course not found with id" + id);
+        }
         return course.get();
     }
 
@@ -44,6 +46,20 @@ public class CourseController {
         repository.save(course);
     }
 
+    @PutMapping("/courses/{id}")
+    public void updateCourse(@PathVariable(name = "id") long id, @RequestBody Course course) {
+
+        Optional<Course> newcourCourse = repository.findById(id);
+        if (newcourCourse.isEmpty()) {
+            throw new RuntimeException("Course not found with id" + id);
+        }
+        newcourCourse.get().setId(id);
+        newcourCourse.get().setAuthor(course.getAuthor());
+        newcourCourse.get().setName(course.getName());
+        repository.save(newcourCourse.get());
+
+//        repository.save(course);
+    }
 
 
 }
