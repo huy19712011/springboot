@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.springboot.courses.repository.CourseRepository;
 import java.util.Optional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -59,6 +60,11 @@ public class CourseController {
         repository.save(newcourCourse.get());
 
 //        repository.save(course);
+    }
+
+    @DeleteMapping("/courses/{id}")
+    public void deleteCourse(@PathVariable long id) {
+        repository.deleteById(id);
     }
 
 
